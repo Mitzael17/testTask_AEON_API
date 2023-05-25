@@ -46,6 +46,16 @@ abstract class base_controller
 
         if($this->controller === 'login_controller' || $this->controller === 'registration_controller') return;
 
+        foreach ($_SERVER as $key => $value) {
+
+            if (substr($key, 0, 9) === 'REDIRECT_') {
+
+                $_SERVER[str_replace('REDIRECT_', '', $key)] = $value;
+
+            }
+
+        }
+
         if(!isset($_SERVER['HTTP_AUTHORIZATION'])) throw new api_exceptions('Ошибка авторизации!', 403);
 
         $user_data = json_decode($this->decrypt($_SERVER['HTTP_AUTHORIZATION']), true);
