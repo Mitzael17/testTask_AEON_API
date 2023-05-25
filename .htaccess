@@ -1,0 +1,19 @@
+AddDefaultCharset UTF-8
+php_flag magic_quotes_gpc Off
+
+php_value upload_max_filezise 100M
+
+php_value session.gc_maxlifetime 86400
+php_value session.cookie_lifetime 0
+
+DirectoryIndex index.php
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !favicon.ico
+RewriteRule ^(.*) index.php
+
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
