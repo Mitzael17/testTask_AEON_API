@@ -48,6 +48,14 @@ class user_controller extends base_controller
             ['key' => 'date_birthday', 'default' => ''],
         ]);
 
+        if(!empty($data['name'])) {
+
+            $user = $this->model->get('users', ['name' => $data['name']]);
+
+            if(isset($user[0]) && $user[0]['id'] !== $this->user_data['id']) throw new api_exceptions('Такой пользователь уже существует!');
+
+        }
+
         foreach ($data as $key => $value) {
 
             if(empty($value)) {
