@@ -85,6 +85,8 @@ class user_controller extends base_controller
 
         }
 
+        if(empty($data)) throw new api_exceptions('Передайте параметры!');
+
         $this->model->update('users', $data, ['id' => $this->user_data['id']]);
 
         if(!empty($data['image'])) $data['image'] = $this->create_image_link($data['image']);
